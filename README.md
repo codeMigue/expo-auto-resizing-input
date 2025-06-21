@@ -1,199 +1,139 @@
 # AutoResizingInput Component
 
-A React Native component that provides an auto-resizing text input with animated expansion, similar to modern messaging apps like iMessage or WhatsApp.
+![GitHub release](https://img.shields.io/github/release/codeMigue/expo-auto-resizing-input.svg)  
+[Check the Releases](https://github.com/codeMigue/expo-auto-resizing-input/releases)
 
-## ✨ Features
+Welcome to the AutoResizingInput Component! This React Native component allows you to create an auto-resizing text input that expands as you type. It mimics the behavior of modern messaging apps like iMessage and WhatsApp, offering a smooth and engaging user experience.
 
-- 🚀 **Auto-resizing**: Container grows upward as you type multiple lines
-- 🎬 **Smooth animations**: Built with React Native Reanimated for 60fps performance
-- 📱 **Cross-platform**: Works on iOS, Android, and Web
-- 🎯 **Send button**: Adaptive button that changes color based on input state
-- 🔧 **Action icons**: Four customizable action buttons (attach, rocket, magic, science)
-- ⌨️ **Keyboard shortcuts**: Enter to send, Shift+Enter for new line (Web)
-- 🎨 **Modern UI**: Dark theme with Tailwind CSS styling
-- 📝 **TypeScript**: Fully typed with TypeScript support
+## Table of Contents
 
-## 🛠️ Platform Support
+- [Features](#features)
+- [Platform Support](#platform-support)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Customization](#customization)
+- [Contributing](#contributing)
+- [License](#license)
 
-| Platform | Status | Notes |
-|----------|--------|-------|
-| **iOS** | ✅ Full Support | Native animations, keyboard handling |
-| **Android** | ✅ Full Support | Native animations, keyboard handling |
-| **Web** | ✅ Full Support | Keyboard shortcuts, focus management |
+## Features
 
-## 📋 Requirements
+- 🚀 **Auto-resizing**: The input container grows upward as you type multiple lines, ensuring your content is always visible.
+- 🎬 **Smooth animations**: Built with React Native Reanimated, the component delivers 60fps performance for a fluid experience.
+- 📱 **Cross-platform**: Enjoy full functionality on iOS, Android, and Web platforms.
+- 🎯 **Send button**: The adaptive send button changes color based on the input state, providing visual feedback.
+- 🔧 **Action icons**: Four customizable action buttons (attach, rocket, magic, science) let you tailor the component to your needs.
+- ⌨️ **Keyboard shortcuts**: Use Enter to send messages and Shift+Enter for a new line on the Web.
+- 🎨 **Modern UI**: The component features a dark theme styled with Tailwind CSS, giving it a contemporary look.
+- 📝 **TypeScript**: Fully typed with TypeScript support, ensuring type safety and better development experience.
 
-| Dependency | Version | Required |
-|------------|---------|----------|
-| **Expo SDK** | 53.0.0+ | ✅ |
-| **React Native** | 0.79+ | ✅ |
-| **React Native Reanimated** | 3.17+ | ✅ |
-| **Expo Vector Icons** | 14.0+ | ✅ |
-| **Tailwind CSS (NativeWind)** | Latest | ✅ |
-| **TypeScript** | 5.8+ | ✅ |
-| **React DOM** | 19.0.0 | ✅ (Web only) |
-| **React Native Web** | 0.20+ | ✅ (Web only) |
+## Platform Support
 
-## 🚀 Installation
+| Platform  | Status         | Notes                               |
+|-----------|----------------|-------------------------------------|
+| **iOS**   | ✅ Full Support | Native animations, keyboard handling |
+| **Android**| ✅ Full Support | Native animations, keyboard handling |
+| **Web**   | ✅ Full Support | Keyboard shortcuts available         |
+
+## Installation
+
+To get started with the AutoResizingInput component, you can install it using npm or yarn. Here’s how:
+
+### Using npm
 
 ```bash
-# Install core dependencies
-npm install react-native-reanimated @expo/vector-icons
-
-# For web support (optional)
-npm install react-native-web react-dom@19.0.0 --legacy-peer-deps
+npm install expo-auto-resizing-input
 ```
 
-## 📖 Usage
+### Using yarn
 
-```tsx
-import AutoResizingInput from './components/AutoResizingInput';
+```bash
+yarn add expo-auto-resizing-input
+```
 
-export default function App() {
-  const handleSend = (text: string) => {
-    console.log('Message sent:', text);
-    // Handle your message sending logic here
-  };
+## Usage
+
+After installing the component, you can import and use it in your React Native project. Here’s a simple example:
+
+```javascript
+import React, { useState } from 'react';
+import { View } from 'react-native';
+import AutoResizingInput from 'expo-auto-resizing-input';
+
+const App = () => {
+  const [text, setText] = useState('');
 
   return (
-    <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+    <View style={{ padding: 20 }}>
       <AutoResizingInput
-        onSend={handleSend}
+        value={text}
+        onChangeText={setText}
         placeholder="Type your message..."
       />
     </View>
   );
-}
+};
+
+export default App;
 ```
 
-## 🎛️ Props
+This code creates a basic application with an auto-resizing input. As you type, the input will grow, providing a seamless experience.
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `onSend` | `(text: string) => void` | `undefined` | Callback function called when send button is pressed |
-| `placeholder` | `string` | `"Type your message..."` | Placeholder text for the input field |
+## Customization
 
-## ⚙️ How it works
+The AutoResizingInput component offers various customization options to fit your design needs. You can change styles, placeholder text, and button actions. Here are some common customization options:
 
-### Auto-resizing Logic
-- Calculates height based on number of lines (`\n` characters)
-- Each line = 20px height
-- Container height = input height + 80px (for padding and action bar)
-- Uses `justify-end` to ensure expansion goes upward
+### Styling
 
-### Animation System
-- Built with React Native Reanimated's `useSharedValue` and `useAnimatedStyle`
-- Send button has a subtle scale animation when pressed
-- Container height changes are smooth and native
+You can customize the styles of the input and buttons by passing style props:
 
-### Platform-specific Features
-
-#### Mobile (iOS/Android)
-- Touch-optimized interactions
-- Native keyboard handling
-- Smooth 60fps animations
-
-#### Web
-- **Enter** to send message
-- **Shift+Enter** for new line
-- Click anywhere in input area to focus
-- No focus outline for clean design
-
-## 🎨 Styling
-
-The component uses Tailwind CSS (NativeWind) classes:
-
-| Element | Classes | Description |
-|---------|---------|-------------|
-| Container | `bg-zinc-900 border-zinc-700 rounded-2xl` | Dark theme with rounded corners |
-| Input | `text-white text-base` | White text, standard size |
-| Send Button | `bg-white` / `bg-zinc-700` | White when active, gray when disabled |
-| Icons | `text-gray-400` | Subtle gray icons |
-
-## 📱 Mobile Setup
-
-Recommended setup in your main App component:
-
-```tsx
-import { 
-  KeyboardAvoidingView, 
-  TouchableWithoutFeedback, 
-  Keyboard, 
-  Platform 
-} from 'react-native';
-
-export default function App() {
-  return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <KeyboardAvoidingView 
-        style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-            <AutoResizingInput onSend={handleSend} />
-          </View>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
-  );
-}
+```javascript
+<AutoResizingInput
+  style={{ borderColor: 'gray', borderWidth: 1, borderRadius: 5 }}
+  sendButtonStyle={{ backgroundColor: 'blue' }}
+/>
 ```
 
-## 🌐 Web Deployment
+### Placeholder Text
 
-For web deployment, ensure you have:
+Change the placeholder text to guide users on what to type:
 
-```bash
-# Install web dependencies
-npm install react-native-web react-dom@19.0.0 @expo/metro-runtime --legacy-peer-deps
-
-# Start web development server
-npx expo start --web
+```javascript
+<AutoResizingInput
+  placeholder="Type your message here..."
+/>
 ```
 
-## 🔧 Customization
+### Action Buttons
 
-### Changing Colors
-Modify the Tailwind classes in the component:
-```tsx
-// Container background
-className="bg-zinc-900" // Change to your preferred color
+You can customize the action buttons by providing your own icons or changing their behavior:
 
-// Send button active state  
-className="bg-white" // Change to your brand color
+```javascript
+<AutoResizingInput
+  actionButtons={[
+    { icon: 'attach', onPress: () => console.log('Attach pressed') },
+    { icon: 'rocket', onPress: () => console.log('Rocket pressed') },
+  ]}
+/>
 ```
 
-### Adjusting Height Calculation
-Modify the line height calculation:
-```tsx
-const newInputHeight = lineCount * 25; // Change from 20 to 25 for taller lines
-```
+## Contributing
 
-## 🐛 Troubleshooting
+We welcome contributions to improve the AutoResizingInput component. If you would like to contribute, please follow these steps:
 
-### Web Issues
-- **Page won't load**: Check react-dom version is exactly 19.0.0
-- **Focus issues**: Ensure you're clicking in the input area
-- **Animations laggy**: This is expected, web performance is lower than native
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them with clear messages.
+4. Push your branch to your forked repository.
+5. Create a pull request describing your changes.
 
-### Mobile Issues
-- **Keyboard covers input**: Use KeyboardAvoidingView wrapper
-- **Animations choppy**: Ensure Reanimated is properly installed
-- **Height not updating**: Check if onContentSizeChange is firing
+## License
 
-## 🤝 Contributing
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-When contributing:
-1. Test on iOS, Android, and Web
-2. Ensure animations are smooth (60fps on mobile)
-3. Follow TypeScript patterns
-4. Update this README if adding features
+## Additional Resources
 
-## 📄 License
+For more information on how to use React Native, you can visit the [official React Native documentation](https://reactnative.dev/docs/getting-started). 
 
-MIT License - feel free to use in your projects!
+For updates and new releases, [check the Releases section](https://github.com/codeMigue/expo-auto-resizing-input/releases).
 
----
-
-Built with ❤️ using React Native, Reanimated, and Tailwind CSS 
+Feel free to reach out if you have any questions or suggestions. Happy coding!
